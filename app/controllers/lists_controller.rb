@@ -1,8 +1,8 @@
 class ListsController < ApplicationController
   def index
     # render json: 'index of lists'
-    lists = List.all;
-    render json: lists
+    @lists = List.all;
+    render json: @lists
   end
 
   def show 
@@ -11,20 +11,21 @@ class ListsController < ApplicationController
 
   def create 
     puts 'create'
-    list = List.new(list_params)
+    @list = List.new(list_params)
     puts params
 
-    if list.save
-      render json: 'saved'
+    if @list.save
+      puts 'saved'
+      render json: @list, status: :created
     else
-      render json: 'error'
+      render json: !list.errors, status: :unprocessable_entity
     end
   end
 
   private 
 
     def list_params
-      params.require(:list).permit(:title)
+      params.require(:list).permit(:title,)
     end
 
 end
