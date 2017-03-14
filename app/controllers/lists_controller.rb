@@ -1,21 +1,21 @@
 class ListsController < ApplicationController
   def index
-    # render json: 'index of lists'
-    @test = [];
-    @lists = List.all;
-
-    @lists.each do |list| 
-      @test << {
+    @lists = [];
+    List.includes(:todo).each do |list|
+      @lists << {
         list: list,
         todo: list.todo
       }
     end
-    render json: {lists: @test}
+    render json: {lists: @lists}
   end
 
   def show 
-    puts List.find(params[:id]).todo
-    render json: List.find(params[:id]), json: List.find(params[:id]).todo
+    list = List.includes(:todo).find(params[:id])
+    render json: {
+            list: list,
+            todos: list.todo
+          }
   end
 
   def create 
