@@ -42,7 +42,14 @@ class ListsController < ApplicationController
 
   def destroy
     List.find(params[:id]).destroy
-    render json: {status: 204}
+    @lists = [];
+    List.includes(:todo).each do |list|
+      @lists << {
+        list: list,
+        todo: list.todo
+      }
+    end
+    render json: {status: 204, lists: @lists}
   end
 
 
