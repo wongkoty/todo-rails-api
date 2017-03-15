@@ -32,9 +32,11 @@ class ListsController < ApplicationController
   end
 
   def update
+    puts list_params
     @list = List.find(params[:id])
     if @list.update(list_params)
-      render json: @list, status: :updated
+      puts 'updated successfully'
+      render json: @list, status: 200
     else
       render json: @list.errors, status: :unprocessable_entity
     end
@@ -56,7 +58,7 @@ class ListsController < ApplicationController
   private 
 
     def list_params
-      params.require(:list).permit(:title,)
+      params.require(:list).permit(:title)
     end
 
 end
