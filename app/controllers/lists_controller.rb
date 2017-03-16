@@ -35,7 +35,6 @@ class ListsController < ApplicationController
     puts list_params
     @list = List.find(params[:id])
     if @list.update(list_params)
-      puts 'updated successfully'
       render json: @list, status: 200
     else
       render json: @list.errors, status: :unprocessable_entity

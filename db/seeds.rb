@@ -7,5 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
   # List.create([{ title: 'Swag'}, {title: 'important'}])
-  Todo.create({done: false, list_id: 1, text: "hello"})
+  Todo.create({done: false, list_id: 10, text: "hello"})
 
