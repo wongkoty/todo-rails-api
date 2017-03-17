@@ -17,6 +17,18 @@ class TodosController < ApplicationController
     end
   end
 
+  def destroy
+    Todo.find(params[:id]).destroy
+    @lists = [];
+    List.includes(:todo).each do |list|
+      @lists << {
+        list: list,
+        todo: list.todo
+      }
+    end
+    render json: {status: 204, lists: @lists}
+  end
+
   private
 
     def todo_params
